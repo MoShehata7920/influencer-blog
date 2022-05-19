@@ -1,8 +1,12 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
+import axios from 'axios' ;
+import {useDispatch} from "react-redux" ;
+import {authActions} from "../store" ;
 
-const login = () => {
-  const [inputs, setInputs] = useState({
+const Login = () => {
+  const dispath = useDispatch() ;
+  const [inputs, setInputs] = useState ({
     name: "",
     email: "",
     password: "",
@@ -16,9 +20,28 @@ const login = () => {
     })
     )
   };
+
+  const sendRequest = async (type="login") => {
+    const res = await axios.post(`http://localhost:4000/api/user/${type}` , {
+      name : inputs.name ,
+      email : inputs.email , 
+      password : inputs.password 
+    }). catch (err => console.log(err)) ;
+
+    const data = await res.data ;
+    return data
+  }
+
   const handelSubmit = (e) =>{
     e.preventDefault();
     console.log(inputs);
+
+    if (isSignup) {
+      sendRequest("signup").then(()=>dispath(authActions.Login())).then(data=>console.log(data)) ; 
+    }
+    else {
+      sendRequest().then(()=>dispath(authActions.Login())).then(data=>console.log(data)) ; 
+    }
   };
   return (
     <div>
@@ -50,7 +73,7 @@ value = {inputs.email}
 placeholder="Password" type={"password"} margin="normal" />
 
 <Button type ="submit" 
-sx={{borderRadius : 3 , marginTop :3}} color="secondary" variant="contained">Submet</Button>
+sx={{borderRadius : 3 , marginTop :3}} color="secondary" variant="contained">Submit</Button>
 
 <Button onClick={()=>setIsSignup(!isSignup)}
 sx={{borderRadius : 3 , marginTop :3}}  color="primary">Change To {isSignup? "Login" : "Signup" } </Button>
@@ -62,4 +85,4 @@ sx={{borderRadius : 3 , marginTop :3}}  color="primary">Change To {isSignup? "Lo
   );
 }; 
 
-export default login;
+export default Login;
