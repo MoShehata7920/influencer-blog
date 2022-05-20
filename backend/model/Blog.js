@@ -5,23 +5,23 @@ const Schema = mongoose.Schema ;
 const blogSchema = new Schema ({
     title: {
         type: String ,
-        required: true 
+        // required: true 
     },
 
     description: {
         type: String ,
-        required: true 
+        // required: true 
     },
     
     image: {
         type: String ,
-        required: true 
+        // required: true 
     },
 
     user : {
         type: mongoose.Types.ObjectId,
         ref: "User" ,
-        required: true 
+        // required: true 
     }
 });
 
