@@ -17,7 +17,11 @@ const Header = () => {
   const dispath = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
 
-  const [value, setValue] = useState();
+  const [value, setValue] = useState('one');
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   return (
     <AppBar
       position="sticky"
@@ -39,18 +43,23 @@ const Header = () => {
             >
               <Tab
                 className={classes.font}
+                value="one"
                 LinkComponent={Link}
                 to="/blogs"
                 label="All Blogs"
               />
               <Tab
                 className={classes.font}
+                value="one"
+
                 LinkComponent={Link}
                 to="/myBlogs"
                 label="My Blogs"
               />
               <Tab
                 className={classes.font}
+                value="one"
+
                 LinkComponent={Link}
                 to="/blogs/add"
                 label="Add Blog"

@@ -21,11 +21,11 @@ const AddBlog = () => {
   };
   const sendRequest = async () => {
     const res = await axios
-      .post("http://localhost:4000/api/blog/add", {
+      .post("http://localhost:5000/api/blog/add", {
         title: inputs.title,
         description: inputs.description,
         image: inputs.imageURL,
-        user: localStorage.getItem("userId"),
+        user: JSON.parse(localStorage.getItem("userId"))._id,
       })
       .catch((err) => console.log(err));
     const data = await res.data;

@@ -1,34 +1,29 @@
 import mongoose from "mongoose";
 
-const Schema = mongoose.Schema ;
+const Schema = mongoose.Schema;
 
-const userSchema = new Schema ({
-    name : {
-        type: String ,
-        required : true
-    },
-    email: {
-        type: String ,
-        required: true ,
-        unique: true
-    },
-    password: {
-        type: String ,
-        required: true,
-        minlength: 6
-    },
+const userSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 6,
+  },
+  // userType : {
+  //   type: String ,
+  //   required : true
+  // } ,
 
-    blogs: [{
-        type: mongoose.Types.ObjectId ,
-        ref: "Blog" ,
-        required: true 
-    }] ,
-
-    // typeofuser: {
-    //     type : String ,
-    //     required: true
-    // }
+  blogs: [{ type: mongoose.Types.ObjectId, ref: "Blog", required: true }],
 });
 
-
-export default mongoose.model("User",userSchema) ;
+export default mongoose.model("User", userSchema);
+// users

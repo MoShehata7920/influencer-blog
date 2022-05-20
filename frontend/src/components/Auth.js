@@ -6,7 +6,7 @@ import { authActions } from "../store";
 import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
-  const navigate = useNavigate();
+  const naviagte = useNavigate();
   const dispath = useDispatch();
   const [inputs, setInputs] = useState({
     name: "",
@@ -21,18 +21,17 @@ const Auth = () => {
     }));
   };
   const sendRequest = async (type = "login") => {
-    const res = await axios
-      .post(`http://localhost:4000/api/user/${type}`, {
+     axios
+      .post(`http://localhost:5000/api/user/${type}`, {
         name: inputs.name,
         email: inputs.email,
         password: inputs.password,
+      }).then((response)=>{
+        console.log(response.data);
+        localStorage.setItem("userId", JSON.stringify(response.data.user))
       })
       .catch((err) => console.log(err));
 
-    const data = await res.data;
-    console.log(data);
-
-    return data;
   };
 
   const handleSubmit = (e) => {
@@ -40,14 +39,12 @@ const Auth = () => {
     console.log(inputs);
     if (isSignup) {
       sendRequest("signup")
-        .then((data) => localStorage.setItem("userId", data.user._id))
         .then(() => dispath(authActions.login()))
-        .then(() => navigate("/blogs"));
+        .then(() => naviagte("/blogs"));
     } else {
       sendRequest()
-        .then((data) => localStorage.setItem("userId", data.user._id))
         .then(() => dispath(authActions.login()))
-        .then(() => navigate("/blogs"));
+        .then(() => naviagte("/blogs"));
     }
   };
   return (
